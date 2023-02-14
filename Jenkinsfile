@@ -5,14 +5,14 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'mvn clean install'
-                echo 'Success'
+                echo 'Build Stage Successful'
             }
         }
       stage('Test'){
         steps('Test')
         {
           sh 'mvn test'
-          echo 'Success'
+          echo 'Test Stage Successful'
           post{
             always{
               junit 'target/surefire-reports/*.xml'
