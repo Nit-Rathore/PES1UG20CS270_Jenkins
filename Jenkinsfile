@@ -4,34 +4,32 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'mvn clean install'
-                echo 'Build Stage Successful'
+                sh 'g++ temp.cpp -o temp'
+                 build job: 'PES1UG20CS270-1', wait: false
+                 echo 'Build successful'
             }
         }
-      stage('Test'){
-        steps('Test')
-        {
-          sh 'mvn test'
-          echo 'Test Stage Successful'
-          post{
-            always{
-              junit 'target/surefire-reports/*.xml'
+
+        stage('Test') {
+            steps {
+                sh 'cat temp.cpp'
+                echo 'Test successful'
             }
-          }
         }
-      }
-      stage ('Deploy'){
-        steps{
-          sh 'mvn deploy'
-          echo 'Deployment Successful'
+
+        stage('Deploy') {
+            steps {
+               
+                echo 'Deploy successful'
+            }
         }
-      }
     }
-  post{
-    failure{
-      echo 'Pipeline failed'
+
+    post {
+        failure {
+            
+                echo 'Pipeline Failed'
+          
+        }
     }
-  }
 }
-
-
